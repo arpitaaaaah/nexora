@@ -1,64 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Room Availability Portal</title>
+    <title>LPU Campus Room Availability & Booking Portal</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --lpu-orange: #f58220;
+            --lpu-orange-dark: #d76b08;
+            --lpu-orange-soft: #fff7ed;
+            --lpu-dark: #171717;
+            --lpu-charcoal: #262626;
+            --bg-light: #f4f7fb;
+            --surface: #ffffff;
+            --border: #dce5ef;
+            --text-main: #1e293b;
+            --text-muted: #52657a;
+            --success-bg: #dcfce7;
+            --success-text: #166534;
+            --danger-bg: #fee2e2;
+            --danger-text: #991b1b;
+            --warning-bg: #fef3c7;
+            --warning-text: #92400e;
+        }
+
         * {
-            box-sizing: border-box
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #1e293b;
-            line-height: 1.5
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        header {
-            background: linear-gradient(120deg, #171717, #303030);
-            border-bottom: 5px solid #f58220;
+        h1, h2, h3, .font-display {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* =========================================================
+           SHARED INSTITUTIONAL TOP BAR & HEADER (LPU THEME)
+        ========================================================= */
+        .institution-bar {
+            background: var(--lpu-orange);
+            color: var(--lpu-dark);
+            padding: 7px 5%;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 12.5px;
+            letter-spacing: 0.3px;
+        }
+
+        .lpu-header {
+            background: linear-gradient(120deg, #171717, #2c2c2c);
+            border-bottom: 4px solid var(--lpu-orange);
             color: #fff;
-            padding: 20px 5%;
+            padding: 16px 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 16px;
-            flex-wrap: wrap
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 25px
-        }
-
-        header p {
-            margin: 4px 0 0;
-            color: #e0edff
+            flex-wrap: wrap;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 18px
+            gap: 16px;
         }
 
-        .logo {
+        .logo-box {
             background: #fff;
-            border-radius: 5px;
-            padding: 6px 10px;
+            border-radius: 6px;
+            padding: 5px 10px;
             display: flex;
-            align-items: center
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }
 
-        .logo img {
-            width: 205px;
-            max-width: 38vw;
+        .logo-box img {
+            width: 175px;
+            max-width: 36vw;
             height: auto;
-            display: block
+            display: block;
         }
 
         .logo-fallback {
@@ -66,712 +110,1763 @@
             align-items: center;
             gap: 8px;
             color: #222;
-            font-weight: bold;
-            font-size: 15px;
-            line-height: 1.05
+            font-weight: 800;
+            font-size: 14px;
+            line-height: 1.1;
         }
 
         .logo-fallback .seal {
-            width: 54px;
-            height: 54px;
-            border: 3px solid #333;
+            width: 44px;
+            height: 44px;
+            border: 2px solid #222;
             border-radius: 50%;
             background: repeating-conic-gradient(#f58220 0deg 18deg, #262626 18deg 30deg);
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 11px;
-            text-shadow: 0 1px 2px #000
-        }
-
-        .logo-fallback .letters {
-            display: grid;
-            grid-template-columns: repeat(3, 24px);
-            gap: 2px
-        }
-
-        .logo-fallback .letters span {
-            background: #f58220;
-            border: 1px solid #333;
-            padding: 3px;
-            color: #222;
-            text-align: center
-        }
-
-        .logo-fallback .words {
-            font-size: 13px;
-            letter-spacing: 1px
+            font-size: 10px;
+            text-shadow: 0 1px 2px #000;
         }
 
         .brand-copy h1 {
-            margin: 0 0 4px;
-            font-size: 24px
+            font-size: 21px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.3px;
         }
 
         .brand-copy p {
-            margin: 0;
-            color: #f5f5f5
+            font-size: 13px;
+            color: #d4d4d8;
+            margin-top: 2px;
         }
 
-        .brand-tag {
-            color: #f58220;
-            font-weight: bold;
-            text-align: right
-        }
-
-        .institution-bar {
-            background: #f58220;
-            color: #171717;
-            padding: 8px 5%;
-            font-weight: bold;
+        .header-right {
             display: flex;
-            justify-content: space-between;
+            align-items: center;
             gap: 12px;
-            flex-wrap: wrap;
-            font-size: 13px
         }
 
-        .portal-switcher {
-            background: #e8f1fb;
-            padding: 14px;
-            text-align: center
-        }
-
-        .portal-switcher p {
-            margin: 0 0 8px;
-            font-weight: bold
-        }
-
-        nav {
-            background: #fff;
-            padding: 13px;
-            text-align: center;
-            border-bottom: 1px solid #dbe4ee
-        }
-
-        nav a {
-            color: #222;
-            font-weight: bold;
-            text-decoration: none;
-            margin: 0 12px;
-            padding: 7px 4px;
-            border-bottom: 2px solid transparent
-        }
-
-        nav a:hover {
-            color: #d76b08;
-            border-color: #f58220
-        }
-
-        button {
-            border: 0;
-            border-radius: 8px;
-            padding: 10px 14px;
-            background: #f58220;
-            color: #202020;
-            cursor: pointer;
-            font-weight: bold
-        }
-
-        button:hover {
-            filter: brightness(.93)
-        }
-
-        button.secondary {
-            background: #e5edf6;
-            color: #234b73
-        }
-
-        button.active {
-            background: #177245;
-            color: #fff
-        }
-
-        button.danger {
-            background: #b42318
-        }
-
-        button.small {
-            padding: 6px 9px;
-            font-size: 13px
-        }
-
-        .portal-button {
-            margin: 4px
-        }
-
-        .portal-button.active {
-            background: #177245;
-            color: #fff
-        }
-
-        main {
-            width: 92%;
-            max-width: 1150px;
-            margin: 22px auto
-        }
-
-        .welcome,
-        section {
-            background: white;
-            border: 1px solid #dce5ef;
-            border-radius: 14px;
-            padding: 18px;
-            margin-bottom: 18px;
-            box-shadow: 0 3px 12px rgba(20, 50, 80, .04)
-        }
-
-        .welcome {
-            background: #fff7ed;
-            border-left: 5px solid #f58220
-        }
-
-        .welcome h2,
-        section h2 {
-            margin-top: 0;
-            color: #252525
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 18px
-        }
-
-        .stat {
-            background: white;
-            border: 1px solid #dce5ef;
-            border-radius: 12px;
-            padding: 16px
-        }
-
-        .stat .number {
-            font-size: 26px;
-            font-weight: bold;
-            color: #d76b08
-        }
-
-        .stat .label {
-            font-size: 14px;
-            color: #52657a
-        }
-
-        .filters {
+        .status-pill {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #f4f4f5;
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 14px
+            align-items: center;
+            gap: 8px;
         }
 
-        .filters>div {
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+        }
+
+        /* =========================================================
+           VIEW 1: SPLIT-SCREEN LOGIN PORTAL
+        ========================================================= */
+        #login-view {
             flex: 1;
-            min-width: 180px
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 5%;
+            background: radial-gradient(circle at top right, #fff3e6 0%, #f4f7fb 55%);
         }
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin: 8px 0 4px
-        }
-
-        input,
-        select,
-        textarea {
+        .portal-grid {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #bdcbd9;
-            border-radius: 8px;
-            background: #fff;
-            font: inherit
+            max-width: 1140px;
+            display: grid;
+            grid-template-columns: 1.12fr 0.88fr;
+            background: var(--surface);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 20px 45px rgba(23, 23, 23, 0.1);
+            border: 1px solid var(--border);
         }
 
-        textarea {
-            min-height: 90px;
-            resize: vertical
+        /* Left Showcase Panel */
+        .portal-showcase {
+            background: linear-gradient(145deg, #171717 0%, #262626 65%, #332215 100%);
+            color: #ffffff;
+            padding: 38px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
         }
 
-        .form-grid {
+        .showcase-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(245, 130, 32, 0.16);
+            border: 1px solid rgba(245, 130, 32, 0.4);
+            color: #fdba74;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .showcase-headline {
+            font-size: 31px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+
+        .highlight-text {
+            color: var(--lpu-orange);
+        }
+
+        .showcase-description {
+            color: #d4d4d8;
+            font-size: 14.5px;
+            margin-bottom: 24px;
+        }
+
+        .role-overview-cards {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .overview-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .overview-card:hover,
+        .overview-card.active-preview {
+            background: rgba(245, 130, 32, 0.14);
+            border-color: var(--lpu-orange);
+        }
+
+        .overview-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--lpu-orange);
+            color: var(--lpu-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .overview-details h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            color: #fff;
+        }
+
+        .overview-details p {
+            font-size: 12.5px;
+            color: #cbd5e1;
+        }
+
+        .showcase-stats-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            margin-bottom: 14px;
+        }
+
+        .stat-box .stat-number {
+            display: block;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--lpu-orange);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .stat-box .stat-label {
+            font-size: 12px;
+            color: #a1a1aa;
+        }
+
+        .showcase-footnote {
+            font-size: 12px;
+            color: #a1a1aa;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Right Authentication Form Panel */
+        .portal-auth-panel {
+            padding: 38px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .auth-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--lpu-dark);
+            margin-bottom: 4px;
+        }
+
+        .auth-subtitle {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .role-tabs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px
+            gap: 8px;
+            background: #f1f5f9;
+            padding: 5px;
+            border-radius: 10px;
+            margin-bottom: 14px;
         }
 
-        .form-grid .wide {
-            grid-column: 1/-1
+        .role-tab {
+            border: none;
+            background: transparent;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13.5px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .role-tab.active {
+            background: var(--lpu-dark);
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .active-role-info {
+            background: var(--lpu-orange-soft);
+            border: 1px solid #fed7aa;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 18px;
+        }
+
+        .role-badge {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--lpu-orange-dark);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .role-description {
+            font-size: 12px;
+            color: #7c2d12;
+            margin-top: 2px;
+        }
+
+        .alert-banner {
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: var(--danger-bg);
+            color: var(--danger-text);
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--lpu-dark);
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-prefix-icon {
+            position: absolute;
+            left: 12px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 38px 10px 36px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--lpu-orange);
+            box-shadow: 0 0 0 3px rgba(245, 130, 32, 0.15);
+        }
+
+        .toggle-password-btn {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12.5px;
+            margin-bottom: 18px;
+        }
+
+        .remember-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .help-link {
+            color: var(--lpu-orange-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--lpu-orange);
+            color: var(--lpu-dark);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 14.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: var(--lpu-orange-dark);
+            color: #ffffff;
+        }
+
+        .demo-login-box {
+            margin-top: 22px;
+            padding-top: 16px;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        .demo-box-header {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .demo-pill-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .demo-pill-btn {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            padding: 9px 10px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .demo-pill-btn:hover {
+            border-color: var(--lpu-orange);
+            background: var(--lpu-orange-soft);
+        }
+
+        .demo-tag {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--lpu-dark);
+        }
+
+        .demo-data {
+            display: block;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* =========================================================
+           VIEW 2: MAIN WORKSPACE (STUDENT & ADMIN PORTALS)
+        ========================================================= */
+        .workspace-nav {
+            background: #ffffff;
+            padding: 12px 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--lpu-dark);
+            font-weight: 700;
+            font-size: 13.5px;
+            text-decoration: none;
+            padding: 6px 4px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--lpu-orange-dark);
+            border-bottom-color: var(--lpu-orange);
+        }
+
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-chip {
+            background: var(--lpu-orange-soft);
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 700;
+        }
+
+        .btn-logout {
+            background: var(--lpu-dark);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 7px 13px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-logout:hover {
+            background: #b42318;
+        }
+
+        main.workspace-container {
+            width: 92%;
+            max-width: 1160px;
+            margin: 24px auto;
+            flex: 1;
+        }
+
+        .welcome-banner,
+        .card-section {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(20, 50, 80, 0.04);
+        }
+
+        .welcome-banner {
+            background: var(--lpu-orange-soft);
+            border-left: 5px solid var(--lpu-orange);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .welcome-banner h2,
+        .card-section h2 {
+            font-size: 19px;
+            color: var(--lpu-dark);
+            margin-bottom: 4px;
+        }
+
+        .card-section h3 {
+            font-size: 15.5px;
+            margin: 16px 0 10px;
+            color: var(--lpu-dark);
+        }
+
+        /* Stats Row */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 18px;
+            border-top: 3px solid var(--lpu-orange);
+        }
+
+        .stat-card .number {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--lpu-orange-dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .stat-card .label {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Filters & Room Grid */
+        .filters {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin: 14px 0 18px;
+        }
+
+        .filters > div {
+            flex: 1;
+            min-width: 190px;
+        }
+
+        .field-label {
+            display: block;
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 5px;
+            color: var(--lpu-dark);
+        }
+
+        .control-input,
+        .control-select,
+        .control-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #bdcbd9;
+            border-radius: 8px;
+            background: #ffffff;
+            font: inherit;
+            font-size: 13.5px;
+        }
+
+        .control-input:focus,
+        .control-select:focus,
+        .control-textarea:focus {
+            outline: none;
+            border-color: var(--lpu-orange);
+        }
+
+        .control-textarea {
+            min-height: 85px;
+            resize: vertical;
         }
 
         .room-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px
+            gap: 14px;
         }
 
         .room-card {
-            border: 1px solid #dce5ef;
+            border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 15px;
-            background: #fff
+            padding: 16px;
+            background: #ffffff;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .room-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            border-color: #fdba74;
         }
 
         .room-card h3 {
-            margin: 0 0 5px;
-            color: #204d78
+            margin: 0 0 6px;
+            font-size: 16px;
+            color: var(--lpu-dark);
         }
 
         .room-card p {
             margin: 4px 0;
-            color: #56697d
+            font-size: 13px;
+            color: var(--text-muted);
         }
 
-        .status {
-            display: inline-block;
-            padding: 4px 9px;
-            border-radius: 20px;
+        .btn-action {
+            border: 0;
+            border-radius: 8px;
+            padding: 9px 14px;
+            background: var(--lpu-orange);
+            color: var(--lpu-dark);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-action:hover {
+            filter: brightness(0.94);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .btn-approve {
+            background: #166534;
+            color: #ffffff;
+            padding: 6px 10px;
             font-size: 12px;
-            font-weight: bold
+            margin-top: 0;
         }
 
-        .available,
-        .approved,
-        .resolved {
-            background: #dcfce7;
-            color: #166534
+        .btn-danger {
+            background: #b42318;
+            color: #ffffff;
+            padding: 6px 10px;
+            font-size: 12px;
+            margin-top: 0;
         }
 
-        .occupied,
-        .rejected {
-            background: #fee2e2;
-            color: #991b1b
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 700;
         }
 
-        .pending {
-            background: #fef3c7;
-            color: #92400e
+        .available, .approved, .resolved {
+            background: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .occupied, .rejected {
+            background: var(--danger-bg);
+            color: var(--danger-text);
+        }
+
+        .pending, .submitted {
+            background: var(--warning-bg);
+            color: var(--warning-text);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 12px;
+        }
+
+        .form-grid .wide {
+            grid-column: 1 / -1;
         }
 
         .table-wrap {
-            overflow-x: auto
+            overflow-x: auto;
+            margin-top: 10px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
-            min-width: 650px
+            background: #ffffff;
+            min-width: 650px;
+            font-size: 13.5px;
         }
 
-        th,
-        td {
-            border: 1px solid #dce5ef;
-            padding: 9px;
-            text-align: left
+        th, td {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            text-align: left;
         }
 
         th {
             background: #fff1df;
-            color: #292929
+            color: var(--lpu-dark);
+            font-weight: 700;
         }
 
         tr:hover td {
-            background: #f7faff
+            background: #fafafa;
         }
 
         .hint {
-            color: #65778a;
-            font-size: 13px
+            color: var(--text-muted);
+            font-size: 12.5px;
+            margin-top: 10px;
         }
 
-        .success {
-            padding: 10px;
+        .feedback-msg {
+            padding: 11px 14px;
             border-radius: 8px;
-            background: #dcfce7;
-            color: #166534;
-            margin-top: 10px
+            margin-top: 12px;
+            font-size: 13.5px;
+            font-weight: 600;
         }
 
-        .support-type {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap
+        .feedback-msg.success {
+            background: var(--success-bg);
+            color: var(--success-text);
         }
 
-        .support-type label {
-            font-weight: normal;
-            margin: 0
+        .feedback-msg.error {
+            background: var(--danger-bg);
+            color: var(--danger-text);
         }
 
-        aside {
-            background: #fffaf0;
-            border: 1px solid #f2dfb6;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 18px
-        }
-
-        footer {
+        /* Institutional Footer */
+        footer.lpu-footer {
             text-align: center;
-            padding: 18px;
-            background: #202020;
-            color: #fff;
-            border-top: 5px solid #f58220
+            padding: 20px 5%;
+            background: var(--lpu-dark);
+            color: #ffffff;
+            border-top: 4px solid var(--lpu-orange);
+            margin-top: auto;
         }
 
-        footer .tagline {
-            color: #f58220;
-            font-weight: bold;
-            margin: 4px 0
+        footer.lpu-footer .tagline {
+            color: var(--lpu-orange);
+            font-weight: 700;
+            margin: 4px 0;
+            font-size: 13.5px;
         }
 
-        section[hidden],
-        nav[hidden],
-        div[hidden] {
-            display: none !important
+        footer.lpu-footer small {
+            color: #a1a1aa;
+            font-size: 12px;
         }
 
-        @media(max-width:800px) {
-            .stats {
-                grid-template-columns: repeat(2, 1fr)
+        @media (max-width: 920px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
             }
-
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
             .room-grid {
-                grid-template-columns: repeat(2, 1fr)
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media(max-width:560px) {
-            header h1 {
-                font-size: 20px
+        @media (max-width: 600px) {
+            .form-grid, .room-grid, .demo-pill-grid {
+                grid-template-columns: 1fr;
             }
-
-            .form-grid,
-            .room-grid {
-                grid-template-columns: 1fr
-            }
-
-            .stats {
-                grid-template-columns: 1fr 1fr
-            }
-
-            nav a {
-                display: inline-block;
-                margin: 5px
-            }
-
-            .filters>div {
-                min-width: 100%
-            }
-
-            main {
-                width: 95%
+            .portal-showcase, .portal-auth-panel {
+                padding: 24px;
             }
         }
     </style>
 </head>
-
 <body>
-    <div class="institution-bar"><span>LOVELY PROFESSIONAL UNIVERSITY · PHAGWARA, PUNJAB</span><span>Campus Services |
-            Student Project Prototype</span></div>
-    <header>
+
+    <!-- Top Institutional Bar -->
+    <div class="institution-bar">
+        <span>LOVELY PROFESSIONAL UNIVERSITY &bull; PHAGWARA, PUNJAB</span>
+        <span>Department of Computer Science &amp; Engineering &bull; Section K3P26SP</span>
+    </div>
+
+    <!-- Main LPU Header -->
+    <header class="lpu-header">
         <div class="brand">
-            <div class="logo"><img src="https://www.lpu.in/lpu-assets/images/media-kit/lpu-logo.jpg"
-                    alt="Lovely Professional University logo"
-                    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div class="logo-fallback" aria-label="LPU logo-style fallback">
+            <div class="logo-box">
+                <img src="https://www.lpu.in/lpu-assets/images/media-kit/lpu-logo.jpg" alt="Lovely Professional University Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="logo-fallback">
                     <div class="seal">LPU</div>
-                    <div>
-                        <div class="letters"><span>L</span><span>P</span><span>U</span></div>
-                        <div class="words">LOVELY<br>PROFESSIONAL<br>UNIVERSITY</div>
-                    </div>
+                    <div>LOVELY<br>PROFESSIONAL<br>UNIVERSITY</div>
                 </div>
             </div>
             <div class="brand-copy">
-                <h1>Campus Room Availability Portal</h1>
-                <p>Room Booking & Classroom Support System</p>
+                <h1>Campus Room Availability &amp; Booking Portal</h1>
+                <p>Unified Classroom Allocation, Live Schedule &amp; Facility Support System</p>
             </div>
         </div>
-        <div class="brand-tag">🎓 LPU CAMPUS SERVICES</div>
+        <div class="header-right">
+            <span class="status-pill">
+                <span class="pulse-dot"></span> Academic Session 2026-27
+            </span>
+        </div>
     </header>
-    <div class="portal-switcher">
-        <p>Choose your portal</p><button id="studentPortalButton" class="portal-button active">Student
-            Portal</button><button id="adminPortalButton" class="portal-button">Admin / Coordinator Portal</button>
-        <p class="hint">Demo website — sample information only</p>
+
+    <!-- =========================================================
+         VIEW 1: LOGIN PORTAL
+    ========================================================= -->
+    <div id="login-view">
+        <div class="portal-grid">
+            <!-- Left Showcase Panel -->
+            <section class="portal-showcase">
+                <div>
+                    <div class="showcase-badge">
+                        <i class="fa-solid fa-graduation-cap"></i> LPU Smart Campus &bull; Session 2026-27
+                    </div>
+                    <h2 class="showcase-headline">
+                        Unified Smart Campus <br>
+                        <span class="highlight-text">Room &amp; Lab Allocation</span>
+                    </h2>
+                    <p class="showcase-description">
+                        Real-time room schedule tracking, automated clash detection, classroom support ticketing, and streamlined space reservations for LPU students and administrators.
+                    </p>
+
+                    <div class="role-overview-cards">
+                        <div class="overview-card active-preview" id="preview-student" onclick="switchLoginRole('student')">
+                            <div class="overview-icon">
+                                <i class="fa-solid fa-user-graduate"></i>
+                            </div>
+                            <div class="overview-details">
+                                <h3>Student Portal Access</h3>
+                                <p>Check live classroom availability across campus blocks, submit booking requests, and raise classroom support tickets.</p>
+                            </div>
+                        </div>
+
+                        <div class="overview-card" id="preview-admin" onclick="switchLoginRole('admin')">
+                            <div class="overview-icon">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div class="overview-details">
+                                <h3>Admin &amp; Coordinator Control</h3>
+                                <p>Review incoming room reservations, prevent overlapping allocations, and resolve classroom facility issues.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="showcase-stats-bar">
+                        <div class="stat-box">
+                            <span class="stat-number">6+</span>
+                            <span class="stat-label">Campus Venues</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Clash Prevention</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Live Status</span>
+                        </div>
+                    </div>
+                    <div class="showcase-footnote">
+                        <i class="fa-solid fa-circle-check" style="color:#4ade80;"></i>
+                        <span>Engineered with HTML5, CSS3 &amp; Vanilla JavaScript &bull; Section K3P26SP</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Authentication Form Panel -->
+            <section class="portal-auth-panel">
+                <h2 class="auth-title">Portal Sign In</h2>
+                <p class="auth-subtitle">Select your role to access your dedicated LPU campus workspace</p>
+
+                <!-- Role Switcher Tabs -->
+                <div class="role-tabs" role="tablist">
+                    <button type="button" id="tab-student" class="role-tab active" onclick="switchLoginRole('student')">
+                        <i class="fa-solid fa-graduation-cap"></i> Student Portal
+                    </button>
+                    <button type="button" id="tab-admin" class="role-tab" onclick="switchLoginRole('admin')">
+                        <i class="fa-solid fa-shield-halved"></i> Admin Portal
+                    </button>
+                </div>
+
+                <!-- Role Context Banner -->
+                <div class="active-role-info">
+                    <div id="current-role-badge" class="role-badge">
+                        <i class="fa-solid fa-graduation-cap"></i> Student Portal Mode
+                    </div>
+                    <div id="current-role-desc" class="role-description">
+                        Search room schedules, request slot bookings &amp; report classroom support issues
+                    </div>
+                </div>
+
+                <!-- Alert Banner -->
+                <div id="alert-banner" class="alert-banner hidden" role="alert">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span id="alert-message"></span>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" novalidate>
+                    <div class="form-group">
+                        <label id="label-username" for="username" class="form-label">Student Registration ID or Username</label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix-icon"><i class="fa-solid fa-user"></i></span>
+                            <input type="text" id="username" class="form-input" placeholder="e.g., 12615002 or student" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="label-password" for="password" class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix-icon"><i class="fa-solid fa-lock"></i></span>
+                            <input type="password" id="password" class="form-input" placeholder="Enter password (student123)" required>
+                            <button type="button" id="btn-toggle-password" class="toggle-password-btn" aria-label="Toggle password visibility">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-label">
+                            <input type="checkbox" id="remember-me" checked> Remember session
+                        </label>
+                        <a href="javascript:void(0)" onclick="alert('Use the 1-Click Demo Sign In buttons below for instant access.')" class="help-link">
+                            <i class="fa-regular fa-circle-question"></i> Need help?
+                        </a>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <span id="btn-submit-text">Sign In to Student Portal</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <!-- 1-Click Demo Login -->
+                <div class="demo-login-box">
+                    <div class="demo-box-header">
+                        <i class="fa-solid fa-bolt" style="color:var(--lpu-orange);"></i> 1-Click Quick Demo Sign In
+                    </div>
+                    <div class="demo-pill-grid">
+                        <button type="button" class="demo-pill-btn" onclick="quickDemoLogin('student')">
+                            <span class="demo-tag"><i class="fa-solid fa-graduation-cap"></i> Student Demo</span>
+                            <span class="demo-data">student / student123</span>
+                        </button>
+                        <button type="button" class="demo-pill-btn" onclick="quickDemoLogin('admin')">
+                            <span class="demo-tag"><i class="fa-solid fa-shield-halved"></i> Admin Demo</span>
+                            <span class="demo-data">admin / admin123</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
-    <nav id="studentNavigation"><a href="#availability">Room Catalogue</a><a href="#timetable">Timetable</a><a
-            href="#request">Book a Room</a><a href="#support">Support Request</a><a href="#my-requests">My Requests</a>
-    </nav>
-    <nav id="adminNavigation" hidden><a href="#admin-panel">Booking Requests</a><a href="#admin-support">Support
-            Requests</a></nav>
-    <main>
-        <div id="studentWelcome" class="welcome">
-            <h2>Welcome to the Student Portal 👋</h2>
-            <p>Search room availability, submit a booking, or raise a classroom support request.</p>
-        </div>
-        <div id="adminWelcome" class="welcome" hidden>
-            <h2>Admin Dashboard</h2>
-            <p>Review booking requests and classroom support tickets.</p>
-        </div>
-        <div id="dashboardStats" class="stats">
-            <div class="stat">
-                <div class="number" id="totalRooms">6</div>
-                <div class="label">Total Rooms</div>
+
+    <!-- =========================================================
+         VIEW 2: AUTHENTICATED CAMPUS PORTAL WORKSPACE
+    ========================================================= -->
+    <div id="workspace-view" class="hidden">
+        <!-- Sticky Navigation Bar -->
+        <nav class="workspace-nav">
+            <div class="nav-links" id="student-nav-links">
+                <a href="#availability">1. Room Catalogue</a>
+                <a href="#timetable">2. Timetable</a>
+                <a href="#request">3. Book a Room</a>
+                <a href="#support">4. Support Request</a>
+                <a href="#my-requests">5. My Requests</a>
             </div>
-            <div class="stat">
-                <div class="number" id="availableRooms">4</div>
-                <div class="label">Available (sample)</div>
+            <div class="nav-links hidden" id="admin-nav-links">
+                <a href="#admin-panel">Booking Approvals</a>
+                <a href="#admin-support">Support Tickets</a>
+                <a href="#availability">Room Overview</a>
             </div>
-            <div class="stat">
-                <div class="number" id="pendingBookings">0</div>
-                <div class="label">Pending Bookings</div>
+            <div class="user-controls">
+                <span class="user-chip" id="logged-user-badge"><i class="fa-solid fa-user"></i> Student</span>
+                <button type="button" class="btn-logout" onclick="logoutPortal()">
+                    <i class="fa-solid fa-right-from-bracket"></i> Switch / Logout
+                </button>
             </div>
-            <div class="stat">
-                <div class="number" id="supportCount">0</div>
-                <div class="label">Support Requests</div>
-            </div>
-        </div>
-        <section id="availability">
-            <h2>1. Room Catalogue</h2>
-            <div class="filters">
-                <div><label for="roomTypeFilter">Room Type</label><select id="roomTypeFilter">
-                        <option>All</option>
-                        <option>Classroom</option>
-                        <option>Computer Lab</option>
-                        <option>Seminar Hall</option>
-                    </select></div>
-                <div><label for="availabilityFilter">Availability</label><select id="availabilityFilter">
-                        <option>All</option>
-                        <option>Available</option>
-                        <option>Occupied</option>
-                    </select></div>
-                <div><label for="roomSearch">Search Room</label><input id="roomSearch" placeholder="Enter room name">
+        </nav>
+
+        <main class="workspace-container">
+            <!-- Student Welcome Banner -->
+            <div id="studentWelcome" class="welcome-banner">
+                <div>
+                    <h2>Welcome to the LPU Student Portal 👋</h2>
+                    <p>Search live classroom availability, submit a booking with clash protection, or raise a classroom support ticket.</p>
                 </div>
             </div>
-            <div class="room-grid" id="roomCards"></div>
-            <p class="hint">Availability, timings and room details are sample data and are not connected to the live
-                campus timetable.</p>
-        </section>
-        <section id="timetable">
-            <h2>2. Sample Timetable</h2>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Room</th>
-                            <th>Scheduled Time</th>
-                            <th>Sample Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Block A - 101</td>
-                            <td>09 AM - 11 AM</td>
-                            <td><span class="status available">Available</span></td>
-                        </tr>
-                        <tr>
-                            <td>Block A - 102</td>
-                            <td>11 AM - 01 PM</td>
-                            <td><span class="status occupied">Occupied</span></td>
-                        </tr>
-                        <tr>
-                            <td>Block B - Lab 1</td>
-                            <td>10 AM - 12 PM</td>
-                            <td><span class="status available">Available</span></td>
-                        </tr>
-                        <tr>
-                            <td>Block B - Lab 2</td>
-                            <td>02 PM - 04 PM</td>
-                            <td><span class="status available">Available</span></td>
-                        </tr>
-                        <tr>
-                            <td>Academic Block - 201</td>
-                            <td>01 PM - 03 PM</td>
-                            <td><span class="status occupied">Occupied</span></td>
-                        </tr>
-                        <tr>
-                            <td>Main Building - Hall 1</td>
-                            <td>03 PM - 05 PM</td>
-                            <td><span class="status available">Available</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+
+            <!-- Admin Welcome Banner -->
+            <div id="adminWelcome" class="welcome-banner hidden">
+                <div>
+                    <h2>LPU Admin &amp; Coordinator Dashboard 🛡️</h2>
+                    <p>Review student room booking requests, approve/reject allocations, and resolve classroom equipment tickets.</p>
+                </div>
             </div>
-        </section>
-        <section id="request">
-            <h2>3. Book a Room</h2>
-            <form id="requestForm">
-                <div class="form-grid">
-                    <div><label>Student Name *</label><input id="studentName" required placeholder="Enter your name">
+
+            <!-- Live Dashboard Metrics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number" id="totalRooms">6</div>
+                    <div class="label">Total Campus Rooms</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="availableRooms">4</div>
+                    <div class="label">Available Rooms</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="pendingBookings">0</div>
+                    <div class="label">Pending Bookings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="supportCount">0</div>
+                    <div class="label">Open Support Tickets</div>
+                </div>
+            </div>
+
+            <!-- ADMIN SECTION 1: BOOKING APPROVALS -->
+            <section id="admin-panel" class="card-section hidden">
+                <h2>Admin — Room Booking Requests</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Student</th>
+                                <th>Reg. No.</th>
+                                <th>Room</th>
+                                <th>Date</th>
+                                <th>Time Slot</th>
+                                <th>People</th>
+                                <th>Purpose</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminRequestRows"></tbody>
+                    </table>
+                </div>
+                <p id="emptyAdminRequests" class="hint">No booking requests to review right now.</p>
+            </section>
+
+            <!-- ADMIN SECTION 2: SUPPORT TICKETS -->
+            <section id="admin-support" class="card-section hidden">
+                <h2>Admin — Classroom Support Requests</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ticket</th>
+                                <th>Reported By</th>
+                                <th>Room</th>
+                                <th>Category</th>
+                                <th>Priority</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminSupportRows"></tbody>
+                    </table>
+                </div>
+                <p id="emptyAdminSupport" class="hint">No support tickets to review right now.</p>
+            </section>
+
+            <!-- SECTION 1: ROOM CATALOGUE -->
+            <section id="availability" class="card-section">
+                <h2>1. LPU Room &amp; Lab Catalogue</h2>
+                <div class="filters">
+                    <div>
+                        <label class="field-label" for="roomTypeFilter">Room Type</label>
+                        <select id="roomTypeFilter" class="control-select">
+                            <option value="All">All Types</option>
+                            <option value="Classroom">Classroom</option>
+                            <option value="Computer Lab">Computer Lab</option>
+                            <option value="Seminar Hall">Seminar Hall</option>
+                        </select>
                     </div>
-                    <div><label>Registration Number *</label><input id="studentId" required
-                            placeholder="Enter registration number"></div>
-                    <div><label>Room Type *</label><select id="roomType" required>
-                            <option value="">Select room type</option>
-                            <option>Classroom</option>
-                            <option>Computer Lab</option>
-                            <option>Seminar Hall</option>
-                        </select></div>
-                    <div><label>Room *</label><select id="roomName" required>
-                            <option value="">Choose room type first</option>
-                        </select></div>
-                    <div><label>Date *</label><input id="requestDate" type="date" required></div>
-                    <div><label>Time Slot *</label><select id="timeSlot" required>
-                            <option value="">Choose time</option>
-                            <option>09:00 AM - 10:00 AM</option>
-                            <option>10:00 AM - 11:00 AM</option>
-                            <option>11:00 AM - 12:00 PM</option>
-                            <option>12:00 PM - 01:00 PM</option>
-                            <option>02:00 PM - 03:00 PM</option>
-                            <option>03:00 PM - 04:00 PM</option>
-                        </select></div>
-                    <div><label>Expected People *</label><input id="people" type="number" min="1" placeholder="e.g. 35"
-                            required></div>
-                    <div class="wide"><label>Purpose / Additional Requirements *</label><textarea id="reason" required
-                            placeholder="Describe your purpose or any classroom requirements"></textarea></div>
-                </div><button type="submit">Submit Booking Request</button><button type="reset" class="secondary">Clear
-                    Form</button>
-                <div id="formMessage" hidden></div>
-            </form>
-        </section>
-        <section id="support">
-            <h2>4. Classroom Support Request</h2>
-            <p>Use this form to report classroom equipment or facility issues. This is separate from room booking.</p>
-            <form id="supportForm">
-                <div class="form-grid">
-                    <div><label>Your Name *</label><input id="supportName" required placeholder="Enter your name"></div>
-                    <div><label>Room / Location *</label><input id="supportRoom" required
-                            placeholder="e.g. Block A - 101"></div>
-                    <div><label>Issue Category *</label><select id="supportCategory" required>
-                            <option value="">Select category</option>
-                            <option>Projector</option>
-                            <option>Computer / Lab</option>
-                            <option>Wi-Fi / Network</option>
-                            <option>AC / Electricity</option>
-                            <option>Seating / Furniture</option>
-                            <option>Other</option>
-                        </select></div>
-                    <div><label>Priority</label><select id="supportPriority">
-                            <option>Normal</option>
-                            <option>Urgent</option>
-                        </select></div>
-                    <div class="wide"><label>Issue Description *</label><textarea id="supportDescription" required
-                            placeholder="Explain the problem and any details"></textarea></div>
-                </div><button type="submit">Submit Support Request</button><button type="reset" class="secondary">Clear
-                    Form</button>
-                <div id="supportMessage" hidden></div>
-            </form>
-        </section>
-        <section id="my-requests">
-            <h2>5. My Requests</h2>
-            <h3>Booking History</h3>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Student</th>
-                            <th>Room</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Purpose</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="requestRows"></tbody>
-                </table>
-            </div>
-            <p id="emptyRequests" class="hint">No booking requests submitted yet.</p>
-            <h3>Support Request History</h3>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Ticket</th>
-                            <th>Name</th>
-                            <th>Room</th>
-                            <th>Category</th>
-                            <th>Priority</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="supportRows"></tbody>
-                </table>
-            </div>
-            <p id="emptySupport" class="hint">No support requests submitted yet.</p><button id="clearRequests"
-                class="secondary">Clear Demo Requests</button>
-        </section>
-        <section id="admin-panel" hidden>
-            <h2>Admin — Booking Requests</h2>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Student</th>
-                            <th>Registration No.</th>
-                            <th>Room</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>People</th>
-                            <th>Purpose</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminRequestRows"></tbody>
-                </table>
-            </div>
-            <p id="emptyAdminRequests" class="hint">No booking requests to review.</p>
-        </section>
-        <section id="admin-support" hidden>
-            <h2>Admin — Support Requests</h2>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Ticket</th>
-                            <th>Name</th>
-                            <th>Room</th>
-                            <th>Category</th>
-                            <th>Priority</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminSupportRows"></tbody>
-                </table>
-            </div>
-            <p id="emptyAdminSupport" class="hint">No support requests to review.</p>
-        </section>
-        <aside><strong>Demo note:</strong> This website uses sample room details and stores submitted requests only in
-            this page session. It has no real login, database or live campus connection. Refreshing the page clears demo
-            requests.</aside>
-    </main>
-    <footer>
-        <div><strong>Lovely Professional University</strong> · Campus Room Availability Portal</div>
-        <p class="tagline">Transforming Education Transforming India</p><small>Student project prototype — not an
-            official university service. Sample data only.</small>
+                    <div>
+                        <label class="field-label" for="availabilityFilter">Availability Status</label>
+                        <select id="availabilityFilter" class="control-select">
+                            <option value="All">All Statuses</option>
+                            <option value="Available">Available</option>
+                            <option value="Occupied">Occupied</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="field-label" for="roomSearch">Search Room / Block</label>
+                        <input id="roomSearch" class="control-input" placeholder="e.g. Block A, Lab 1...">
+                    </div>
+                </div>
+                <div class="room-grid" id="roomCards"></div>
+            </section>
+
+            <!-- SECTION 2: TIMETABLE -->
+            <section id="timetable" class="card-section">
+                <h2>2. Campus Schedule Overview</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Room / Block</th>
+                                <th>Category</th>
+                                <th>Capacity</th>
+                                <th>Scheduled Window</th>
+                                <th>Current Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="timetableRows"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- STUDENT SECTION 3: BOOK A ROOM -->
+            <section id="request" class="card-section">
+                <h2>3. Book a Classroom or Lab</h2>
+                <form id="requestForm">
+                    <div class="form-grid">
+                        <div>
+                            <label class="field-label">Student Name *</label>
+                            <input id="studentName" class="control-input" required placeholder="Enter full name">
+                        </div>
+                        <div>
+                            <label class="field-label">LPU Registration Number *</label>
+                            <input id="studentId" class="control-input" required placeholder="e.g. 12615002">
+                        </div>
+                        <div>
+                            <label class="field-label">Room Type *</label>
+                            <select id="roomType" class="control-select" required>
+                                <option value="">Select room type</option>
+                                <option value="Classroom">Classroom</option>
+                                <option value="Computer Lab">Computer Lab</option>
+                                <option value="Seminar Hall">Seminar Hall</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="field-label">Select Room *</label>
+                            <select id="roomName" class="control-select" required>
+                                <option value="">Choose room type first</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="field-label">Date *</label>
+                            <input id="requestDate" type="date" class="control-input" required>
+                        </div>
+                        <div>
+                            <label class="field-label">Time Slot *</label>
+                            <select id="timeSlot" class="control-select" required>
+                                <option value="">Choose time slot</option>
+                                <option>09:00 AM - 10:00 AM</option>
+                                <option>10:00 AM - 11:00 AM</option>
+                                <option>11:00 AM - 12:00 PM</option>
+                                <option>12:00 PM - 01:00 PM</option>
+                                <option>02:00 PM - 03:00 PM</option>
+                                <option>03:00 PM - 04:00 PM</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="field-label">Expected Attendees *</label>
+                            <input id="people" type="number" min="1" class="control-input" placeholder="e.g. 35" required>
+                        </div>
+                        <div class="wide">
+                            <label class="field-label">Purpose / Additional Requirements *</label>
+                            <textarea id="reason" class="control-textarea" required placeholder="Describe workshop, club meeting, or extra lecture requirements"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-action"><i class="fa-solid fa-paper-plane"></i> Submit Booking Request</button>
+                    <button type="reset" class="btn-action btn-secondary">Clear Form</button>
+                    <div id="formMessage" class="feedback-msg hidden"></div>
+                </form>
+            </section>
+
+            <!-- STUDENT SECTION 4: CLASSROOM SUPPORT REQUEST -->
+            <section id="support" class="card-section">
+                <h2>4. Classroom Support &amp; Maintenance Request</h2>
+                <p class="hint" style="margin-top:0;">Report projector, Wi-Fi, lab PC, or electrical issues directly to LPU Campus Services.</p>
+                <form id="supportForm">
+                    <div class="form-grid">
+                        <div>
+                            <label class="field-label">Your Name *</label>
+                            <input id="supportName" class="control-input" required placeholder="Enter your name">
+                        </div>
+                        <div>
+                            <label class="field-label">Room / Location *</label>
+                            <input id="supportRoom" class="control-input" required placeholder="e.g. Block A - 101">
+                        </div>
+                        <div>
+                            <label class="field-label">Issue Category *</label>
+                            <select id="supportCategory" class="control-select" required>
+                                <option value="">Select category</option>
+                                <option>Projector / Smart Board</option>
+                                <option>Computer / Lab System</option>
+                                <option>Wi-Fi / Network</option>
+                                <option>AC / Electricity</option>
+                                <option>Seating / Furniture</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="field-label">Priority Level</label>
+                            <select id="supportPriority" class="control-select">
+                                <option>Normal</option>
+                                <option>Urgent</option>
+                            </select>
+                        </div>
+                        <div class="wide">
+                            <label class="field-label">Issue Description *</label>
+                            <textarea id="supportDescription" class="control-textarea" required placeholder="Explain the issue in detail"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-action"><i class="fa-solid fa-screwdriver-wrench"></i> Submit Support Ticket</button>
+                    <button type="reset" class="btn-action btn-secondary">Clear Form</button>
+                    <div id="supportMessage" class="feedback-msg hidden"></div>
+                </form>
+            </section>
+
+            <!-- STUDENT SECTION 5: MY REQUESTS -->
+            <section id="my-requests" class="card-section">
+                <h2>5. My Requests &amp; Ticket Status</h2>
+                <h3>Booking History</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Student</th>
+                                <th>Room</th>
+                                <th>Date</th>
+                                <th>Time Slot</th>
+                                <th>Purpose</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestRows"></tbody>
+                    </table>
+                </div>
+                <p id="emptyRequests" class="hint">No booking requests submitted yet.</p>
+
+                <h3>Support Ticket History</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ticket</th>
+                                <th>Name</th>
+                                <th>Room</th>
+                                <th>Category</th>
+                                <th>Priority</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supportRows"></tbody>
+                    </table>
+                </div>
+                <p id="emptySupport" class="hint">No support tickets submitted yet.</p>
+                <button type="button" id="clearRequests" class="btn-action btn-secondary" style="margin-top:14px;">
+                    <i class="fa-solid fa-rotate-left"></i> Reset Demo Data
+                </button>
+            </section>
+        </main>
+    </div>
+
+    <!-- Institutional Footer -->
+    <footer class="lpu-footer">
+        <div><strong>Lovely Professional University</strong> &bull; Campus Room Availability &amp; Booking System</div>
+        <p class="tagline">Transforming Education Transforming India</p>
+        <small>Academic Session 2026-27 &bull; Department of CSE (Section K3P26SP) &bull; Built with HTML, CSS &amp; JavaScript</small>
     </footer>
+
     <script>
-        var rooms = [{ room: "Block A - 101", type: "Classroom", capacity: 60, time: "09 AM - 11 AM", status: "Available" }, { room: "Block A - 102", type: "Classroom", capacity: 40, time: "11 AM - 01 PM", status: "Occupied" }, { room: "Block B - Lab 1", type: "Computer Lab", capacity: 35, time: "10 AM - 12 PM", status: "Available" }, { room: "Block B - Lab 2", type: "Computer Lab", capacity: 30, time: "02 PM - 04 PM", status: "Available" }, { room: "Academic Block - 201", type: "Classroom", capacity: 80, time: "01 PM - 03 PM", status: "Occupied" }, { room: "Main Building - Hall 1", type: "Seminar Hall", capacity: 120, time: "03 PM - 05 PM", status: "Available" }];
-        var requests = []; var supportRequests = [];
-        function statusBadge(status) { return '<span class="status ' + status.toLowerCase() + '">' + status + '</span>' }
-        function showRooms() { var type = document.getElementById('roomTypeFilter').value; var status = document.getElementById('availabilityFilter').value; var search = document.getElementById('roomSearch').value.toLowerCase(); var out = ''; var count = 0; rooms.forEach(function (r) { if ((type === 'All' || r.type === type) && (status === 'All' || r.status === status) && r.room.toLowerCase().includes(search)) { count++; out += '<div class="room-card"><h3>🏫 ' + r.room + '</h3><p>' + r.type + ' · Capacity: ' + r.capacity + '</p><p>Time: ' + r.time + '</p><p>Status: ' + statusBadge(r.status) + '</p><button onclick="selectRoom(\'' + r.type + '\',\'' + r.room + '\')">Book this room</button></div>' } }); document.getElementById('roomCards').innerHTML = out || '<p>No rooms match your filters.</p>'; document.getElementById('totalRooms').textContent = rooms.length; document.getElementById('availableRooms').textContent = rooms.filter(function (r) { return r.status === 'Available' }).length }
-        function selectRoom(type, name) { document.getElementById('roomType').value = type; updateRoomOptions(); document.getElementById('roomName').value = name; document.getElementById('request').scrollIntoView({ behavior: 'smooth' }) }
-        function updateRoomOptions() { var type = document.getElementById('roomType').value; var sel = document.getElementById('roomName'); sel.innerHTML = '<option value="">Choose room</option>'; rooms.forEach(function (r) { if (r.type === type) { var o = document.createElement('option'); o.value = r.room; o.textContent = r.room + ' (Capacity: ' + r.capacity + ')'; sel.appendChild(o) } }) }
-        function showRequests() { var student = '', admin = ''; requests.forEach(function (r, i) { student += '<tr><td>' + r.id + '</td><td>' + r.name + '</td><td>' + r.room + '</td><td>' + r.date + '</td><td>' + r.time + '</td><td>' + r.reason + '</td><td>' + statusBadge(r.status) + '</td></tr>'; admin += '<tr><td>' + r.id + '</td><td>' + r.name + '</td><td>' + r.studentId + '</td><td>' + r.room + '</td><td>' + r.date + '</td><td>' + r.time + '</td><td>' + r.people + '</td><td>' + r.reason + '</td><td>' + statusBadge(r.status) + '</td><td>' + (r.status === 'Pending' ? '<button class="small" onclick="changeBooking(' + i + ',\'Approved\')">Approve</button> <button class="small danger" onclick="changeBooking(' + i + ',\'Rejected\')">Reject</button>' : 'Recorded') + '</td></tr>' }); document.getElementById('requestRows').innerHTML = student; document.getElementById('adminRequestRows').innerHTML = admin; document.getElementById('emptyRequests').hidden = requests.length > 0; document.getElementById('emptyAdminRequests').hidden = requests.length > 0; document.getElementById('pendingBookings').textContent = requests.filter(function (r) { return r.status === 'Pending' }).length }
-        function changeBooking(i, status) { requests[i].status = status; showRequests() }
-        function showSupport() { var st = '', ad = ''; supportRequests.forEach(function (s, i) { st += '<tr><td>' + s.id + '</td><td>' + s.name + '</td><td>' + s.room + '</td><td>' + s.category + '</td><td>' + s.priority + '</td><td>' + s.description + '</td><td>' + statusBadge(s.status) + '</td></tr>'; ad += '<tr><td>' + s.id + '</td><td>' + s.name + '</td><td>' + s.room + '</td><td>' + s.category + '</td><td>' + s.priority + '</td><td>' + s.description + '</td><td>' + statusBadge(s.status) + '</td><td>' + (s.status === 'Submitted' ? '<button class="small" onclick="resolveSupport(' + i + ')">Mark Resolved</button>' : 'Completed') + '</td></tr>' }); document.getElementById('supportRows').innerHTML = st; document.getElementById('adminSupportRows').innerHTML = ad; document.getElementById('emptySupport').hidden = supportRequests.length > 0; document.getElementById('emptyAdminSupport').hidden = supportRequests.length > 0; document.getElementById('supportCount').textContent = supportRequests.length }
-        function resolveSupport(i) { supportRequests[i].status = 'Resolved'; showSupport() }
-        function showPortal(name) { var studentIds = ['studentWelcome', 'dashboardStats', 'availability', 'timetable', 'request', 'support', 'my-requests']; var adminIds = ['adminWelcome', 'admin-panel', 'admin-support']; studentIds.forEach(function (id) { document.getElementById(id).hidden = name !== 'student' }); adminIds.forEach(function (id) { document.getElementById(id).hidden = name !== 'admin' }); document.getElementById('studentNavigation').hidden = name !== 'student'; document.getElementById('adminNavigation').hidden = name !== 'admin'; document.getElementById('studentPortalButton').classList.toggle('active', name === 'student'); document.getElementById('adminPortalButton').classList.toggle('active', name === 'admin'); window.scrollTo(0, 0) }
-        document.getElementById('studentPortalButton').onclick = function () { showPortal('student') }; document.getElementById('adminPortalButton').onclick = function () { showPortal('admin') }; document.getElementById('roomType').onchange = updateRoomOptions;['roomTypeFilter', 'availabilityFilter', 'roomSearch'].forEach(function (id) { document.getElementById(id).addEventListener('input', showRooms); document.getElementById(id).addEventListener('change', showRooms) });
-        document.getElementById('requestForm').onsubmit = function (e) { e.preventDefault(); var name = document.getElementById('studentName').value; var sid = document.getElementById('studentId').value; var room = document.getElementById('roomName').value; var date = document.getElementById('requestDate').value; var time = document.getElementById('timeSlot').value; var people = Number(document.getElementById('people').value); var reason = document.getElementById('reason').value; var roomObj = rooms.find(function (r) { return r.room === room }); if (roomObj && people > roomObj.capacity) { showMessage('formMessage', 'Room capacity is ' + roomObj.capacity + '. Please choose a room with enough seats.'); return } var conflict = requests.some(function (r) { return r.room === room && r.date === date && r.time === time && r.status !== 'Rejected' }); if (conflict) { showMessage('formMessage', 'Booking conflict: this room already has a pending or approved request for this date and time.'); return } requests.push({ id: 'BR-' + (requests.length + 1), name: name, studentId: sid, room: room, date: date, time: time, people: people, reason: reason, status: 'Pending' }); showRequests(); showMessage('formMessage', 'Booking request submitted successfully! Status: Pending.'); this.reset(); updateRoomOptions() };
-        document.getElementById('supportForm').onsubmit = function (e) { e.preventDefault(); supportRequests.push({ id: 'SR-' + (supportRequests.length + 1), name: document.getElementById('supportName').value, room: document.getElementById('supportRoom').value, category: document.getElementById('supportCategory').value, priority: document.getElementById('supportPriority').value, description: document.getElementById('supportDescription').value, status: 'Submitted' }); showSupport(); showMessage('supportMessage', 'Support request submitted! You can track its status in My Requests.'); this.reset() };
-        function showMessage(id, msg) { var el = document.getElementById(id); el.textContent = msg; el.className = 'success'; el.hidden = false }
-        document.getElementById('clearRequests').onclick = function () { requests = []; supportRequests = []; showRequests(); showSupport() }; showRooms(); showRequests(); showSupport(); updateRoomOptions();
+        /* =========================================================
+           STATE & SAMPLE DATA (PERSISTED IN LOCALSTORAGE)
+        ========================================================= */
+        let selectedLoginRole = 'student';
+        let activeSession = JSON.parse(localStorage.getItem('lpu_active_session')) || null;
+
+        const rooms = [
+            { room: "Block A - 101", type: "Classroom", capacity: 60, time: "09:00 AM - 11:00 AM", status: "Available" },
+            { room: "Block A - 102", type: "Classroom", capacity: 40, time: "11:00 AM - 01:00 PM", status: "Occupied" },
+            { room: "Block B - Lab 1", type: "Computer Lab", capacity: 35, time: "10:00 AM - 12:00 PM", status: "Available" },
+            { room: "Block B - Lab 2", type: "Computer Lab", capacity: 30, time: "02:00 PM - 04:00 PM", status: "Available" },
+            { room: "Academic Block - 201", type: "Classroom", capacity: 80, time: "01:00 PM - 03:00 PM", status: "Occupied" },
+            { room: "Main Building - Hall 1", type: "Seminar Hall", capacity: 120, time: "03:00 PM - 05:00 PM", status: "Available" }
+        ];
+
+        let requests = JSON.parse(localStorage.getItem('lpu_booking_requests')) || [];
+        let supportRequests = JSON.parse(localStorage.getItem('lpu_support_requests')) || [];
+
+        function saveData() {
+            localStorage.setItem('lpu_booking_requests', JSON.stringify(requests));
+            localStorage.setItem('lpu_support_requests', JSON.stringify(supportRequests));
+        }
+
+        /* =========================================================
+           LOGIN PORTAL INTERACTIONS
+        ========================================================= */
+        function switchLoginRole(role) {
+            selectedLoginRole = role;
+            const isStudent = role === 'student';
+
+            document.getElementById('tab-student').classList.toggle('active', isStudent);
+            document.getElementById('tab-admin').classList.toggle('active', !isStudent);
+            document.getElementById('preview-student').classList.toggle('active-preview', isStudent);
+            document.getElementById('preview-admin').classList.toggle('active-preview', !isStudent);
+
+            document.getElementById('current-role-badge').innerHTML = isStudent
+                ? '<i class="fa-solid fa-graduation-cap"></i> Student Portal Mode'
+                : '<i class="fa-solid fa-shield-halved"></i> Admin / Coordinator Mode';
+
+            document.getElementById('current-role-desc').textContent = isStudent
+                ? 'Search room schedules, request slot bookings & report classroom support issues'
+                : 'Approve or reject room reservations and resolve campus support tickets';
+
+            document.getElementById('label-username').textContent = isStudent
+                ? 'Student Registration ID or Username'
+                : 'Admin / Faculty ID or Username';
+
+            document.getElementById('username').placeholder = isStudent
+                ? 'e.g., 12615002 or student'
+                : 'e.g., admin';
+
+            document.getElementById('password').placeholder = isStudent
+                ? 'Enter password (student123)'
+                : 'Enter password (admin123)';
+
+            document.getElementById('btn-submit-text').textContent = isStudent
+                ? 'Sign In to Student Portal'
+                : 'Sign In to Admin Dashboard';
+
+            document.getElementById('alert-banner').classList.add('hidden');
+        }
+
+        document.getElementById('btn-toggle-password').addEventListener('click', function () {
+            const pwd = document.getElementById('password');
+            const icon = this.querySelector('i');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                pwd.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
+
+        function showLoginError(msg) {
+            const banner = document.getElementById('alert-banner');
+            document.getElementById('alert-message').textContent = msg;
+            banner.classList.remove('hidden');
+        }
+
+        function quickDemoLogin(role) {
+            switchLoginRole(role);
+            if (role === 'student') {
+                document.getElementById('username').value = 'student';
+                document.getElementById('password').value = 'student123';
+            } else {
+                document.getElementById('username').value = 'admin';
+                document.getElementById('password').value = 'admin123';
+            }
+            enterWorkspace(role, document.getElementById('username').value);
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+
+            if (!user || !pass) {
+                showLoginError('Please enter both your ID/Username and Password.');
+                return;
+            }
+
+            if (selectedLoginRole === 'student') {
+                if ((user.toLowerCase() === 'student' || /^\d{6,10}$/.test(user)) && pass === 'student123') {
+                    enterWorkspace('student', user);
+                } else {
+                    showLoginError('Invalid student credentials. Use "student" / "student123" or click Student Demo.');
+                }
+            } else {
+                if (user.toLowerCase() === 'admin' && pass === 'admin123') {
+                    enterWorkspace('admin', user);
+                } else {
+                    showLoginError('Invalid admin credentials. Use "admin" / "admin123" or click Admin Demo.');
+                }
+            }
+        });
+
+        function enterWorkspace(role, username) {
+            activeSession = { role, username };
+            if (document.getElementById('remember-me').checked) {
+                localStorage.setItem('lpu_active_session', JSON.stringify(activeSession));
+            }
+
+            document.getElementById('login-view').classList.add('hidden');
+            document.getElementById('workspace-view').classList.remove('hidden');
+
+            const isStudent = role === 'student';
+
+            // Toggle Navigation & Banners
+            document.getElementById('student-nav-links').classList.toggle('hidden', !isStudent);
+            document.getElementById('admin-nav-links').classList.toggle('hidden', isStudent);
+            document.getElementById('studentWelcome').classList.toggle('hidden', !isStudent);
+            document.getElementById('adminWelcome').classList.toggle('hidden', isStudent);
+
+            // Toggle Student vs Admin Sections
+            document.getElementById('request').classList.toggle('hidden', !isStudent);
+            document.getElementById('support').classList.toggle('hidden', !isStudent);
+            document.getElementById('my-requests').classList.toggle('hidden', !isStudent);
+
+            document.getElementById('admin-panel').classList.toggle('hidden', isStudent);
+            document.getElementById('admin-support').classList.toggle('hidden', isStudent);
+
+            document.getElementById('logged-user-badge').innerHTML = isStudent
+                ? `<i class="fa-solid fa-user-graduate"></i> Student (${username})`
+                : `<i class="fa-solid fa-shield-halved"></i> Admin (${username})`;
+
+            if (isStudent && /^\d+$/.test(username)) {
+                document.getElementById('studentId').value = username;
+            }
+
+            renderAll();
+            window.scrollTo(0, 0);
+        }
+
+        function logoutPortal() {
+            activeSession = null;
+            localStorage.removeItem('lpu_active_session');
+            document.getElementById('workspace-view').classList.add('hidden');
+            document.getElementById('login-view').classList.remove('hidden');
+            document.getElementById('password').value = '';
+            document.getElementById('alert-banner').classList.add('hidden');
+        }
+
+        /* =========================================================
+           ROOM CATALOGUE, BOOKING & ADMIN WORKSPACE LOGIC
+        ========================================================= */
+        function statusBadge(status) {
+            return `<span class="status-badge ${status.toLowerCase()}">${status}</span>`;
+        }
+
+        function showRooms() {
+            const type = document.getElementById('roomTypeFilter').value;
+            const status = document.getElementById('availabilityFilter').value;
+            const search = document.getElementById('roomSearch').value.toLowerCase();
+            let cardsHtml = '';
+            let tableHtml = '';
+
+            rooms.forEach(r => {
+                tableHtml += `
+                    <tr>
+                        <td><strong>${r.room}</strong></td>
+                        <td>${r.type}</td>
+                        <td>${r.capacity} Seats</td>
+                        <td>${r.time}</td>
+                        <td>${statusBadge(r.status)}</td>
+                    </tr>
+                `;
+
+                if ((type === 'All' || r.type === type) &&
+                    (status === 'All' || r.status === status) &&
+                    r.room.toLowerCase().includes(search)) {
+                    const isStudent = !activeSession || activeSession.role === 'student';
+                    cardsHtml += `
+                        <div class="room-card">
+                            <h3><i class="fa-solid fa-door-open" style="color:var(--lpu-orange);"></i> ${r.room}</h3>
+                            <p><strong>Type:</strong> ${r.type} &bull; <strong>Capacity:</strong> ${r.capacity}</p>
+                            <p><strong>Window:</strong> ${r.time}</p>
+                            <p><strong>Status:</strong> ${statusBadge(r.status)}</p>
+                            ${isStudent ? `<button type="button" class="btn-action" onclick="selectRoom('${r.type}', '${r.room}')">Book this room</button>` : ''}
+                        </div>
+                    `;
+                }
+            });
+
+            document.getElementById('roomCards').innerHTML = cardsHtml || '<p class="hint">No rooms match your filter criteria.</p>';
+            document.getElementById('timetableRows').innerHTML = tableHtml;
+            document.getElementById('totalRooms').textContent = rooms.length;
+            document.getElementById('availableRooms').textContent = rooms.filter(r => r.status === 'Available').length;
+        }
+
+        function selectRoom(type, name) {
+            document.getElementById('roomType').value = type;
+            updateRoomOptions();
+            document.getElementById('roomName').value = name;
+            document.getElementById('request').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateRoomOptions() {
+            const type = document.getElementById('roomType').value;
+            const sel = document.getElementById('roomName');
+            sel.innerHTML = '<option value="">Choose room</option>';
+            rooms.forEach(r => {
+                if (r.type === type) {
+                    const opt = document.createElement('option');
+                    opt.value = r.room;
+                    opt.textContent = `${r.room} (Capacity: ${r.capacity})`;
+                    sel.appendChild(opt);
+                }
+            });
+        }
+
+        function showRequests() {
+            let studentHtml = '';
+            let adminHtml = '';
+
+            requests.forEach((r, i) => {
+                studentHtml += `
+                    <tr>
+                        <td><strong>${r.id}</strong></td>
+                        <td>${r.name}</td>
+                        <td>${r.room}</td>
+                        <td>${r.date}</td>
+                        <td>${r.time}</td>
+                        <td>${r.reason}</td>
+                        <td>${statusBadge(r.status)}</td>
+                    </tr>
+                `;
+
+                const actionButtons = r.status === 'Pending'
+                    ? `<button type="button" class="btn-action btn-approve" onclick="changeBooking(${i}, 'Approved')">Approve</button>
+                       <button type="button" class="btn-action btn-danger" onclick="changeBooking(${i}, 'Rejected')">Reject</button>`
+                    : `<span class="hint">Processed</span>`;
+
+                adminHtml += `
+                    <tr>
+                        <td><strong>${r.id}</strong></td>
+                        <td>${r.name}</td>
+                        <td>${r.studentId}</td>
+                        <td>${r.room}</td>
+                        <td>${r.date}</td>
+                        <td>${r.time}</td>
+                        <td>${r.people}</td>
+                        <td>${r.reason}</td>
+                        <td>${statusBadge(r.status)}</td>
+                        <td>${actionButtons}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('requestRows').innerHTML = studentHtml;
+            document.getElementById('adminRequestRows').innerHTML = adminHtml;
+            document.getElementById('emptyRequests').classList.toggle('hidden', requests.length > 0);
+            document.getElementById('emptyAdminRequests').classList.toggle('hidden', requests.length > 0);
+            document.getElementById('pendingBookings').textContent = requests.filter(r => r.status === 'Pending').length;
+        }
+
+        function changeBooking(index, status) {
+            requests[index].status = status;
+            saveData();
+            showRequests();
+        }
+
+        function showSupport() {
+            let studentHtml = '';
+            let adminHtml = '';
+
+            supportRequests.forEach((s, i) => {
+                studentHtml += `
+                    <tr>
+                        <td><strong>${s.id}</strong></td>
+                        <td>${s.name}</td>
+                        <td>${s.room}</td>
+                        <td>${s.category}</td>
+                        <td>${s.priority}</td>
+                        <td>${s.description}</td>
+                        <td>${statusBadge(s.status)}</td>
+                    </tr>
+                `;
+
+                const actionBtn = s.status === 'Submitted'
+                    ? `<button type="button" class="btn-action btn-approve" onclick="resolveSupport(${i})">Mark Resolved</button>`
+                    : `<span class="hint">Completed</span>`;
+
+                adminHtml += `
+                    <tr>
+                        <td><strong>${s.id}</strong></td>
+                        <td>${s.name}</td>
+                        <td>${s.room}</td>
+                        <td>${s.category}</td>
+                        <td>${s.priority}</td>
+                        <td>${s.description}</td>
+                        <td>${statusBadge(s.status)}</td>
+                        <td>${actionBtn}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('supportRows').innerHTML = studentHtml;
+            document.getElementById('adminSupportRows').innerHTML = adminHtml;
+            document.getElementById('emptySupport').classList.toggle('hidden', supportRequests.length > 0);
+            document.getElementById('emptyAdminSupport').classList.toggle('hidden', supportRequests.length > 0);
+            document.getElementById('supportCount').textContent = supportRequests.filter(s => s.status === 'Submitted').length;
+        }
+
+        function resolveSupport(index) {
+            supportRequests[index].status = 'Resolved';
+            saveData();
+            showSupport();
+        }
+
+        function showFeedback(id, msg, isError = false) {
+            const el = document.getElementById(id);
+            el.textContent = msg;
+            el.className = `feedback-msg ${isError ? 'error' : 'success'}`;
+            el.classList.remove('hidden');
+        }
+
+        // Form Submissions
+        document.getElementById('requestForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('studentName').value.trim();
+            const sid = document.getElementById('studentId').value.trim();
+            const room = document.getElementById('roomName').value;
+            const date = document.getElementById('requestDate').value;
+            const time = document.getElementById('timeSlot').value;
+            const people = Number(document.getElementById('people').value);
+            const reason = document.getElementById('reason').value.trim();
+
+            const roomObj = rooms.find(r => r.room === room);
+            if (roomObj && people > roomObj.capacity) {
+                showFeedback('formMessage', `Capacity Exceeded: ${room} holds up to ${roomObj.capacity} people.`, true);
+                return;
+            }
+
+            const conflict = requests.some(r => r.room === room && r.date === date && r.time === time && r.status !== 'Rejected');
+            if (conflict) {
+                showFeedback('formMessage', `Clash Detected: ${room} already has a pending or approved booking for ${date} (${time}).`, true);
+                return;
+            }
+
+            requests.push({
+                id: 'BR-' + (100 + requests.length + 1),
+                name,
+                studentId: sid,
+                room,
+                date,
+                time,
+                people,
+                reason,
+                status: 'Pending'
+            });
+
+            saveData();
+            showRequests();
+            showFeedback('formMessage', 'Booking request submitted! Track approval status in Section 5.');
+            this.reset();
+            updateRoomOptions();
+        });
+
+        document.getElementById('supportForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            supportRequests.push({
+                id: 'SR-' + (200 + supportRequests.length + 1),
+                name: document.getElementById('supportName').value.trim(),
+                room: document.getElementById('supportRoom').value.trim(),
+                category: document.getElementById('supportCategory').value,
+                priority: document.getElementById('supportPriority').value,
+                description: document.getElementById('supportDescription').value.trim(),
+                status: 'Submitted'
+            });
+
+            saveData();
+            showSupport();
+            showFeedback('supportMessage', 'Support ticket logged! Campus Services has been notified.');
+            this.reset();
+        });
+
+        document.getElementById('clearRequests').addEventListener('click', function () {
+            requests = [];
+            supportRequests = [];
+            saveData();
+            showRequests();
+            showSupport();
+        });
+
+        document.getElementById('roomType').addEventListener('change', updateRoomOptions);
+        ['roomTypeFilter', 'availabilityFilter', 'roomSearch'].forEach(id => {
+            document.getElementById(id).addEventListener('input', showRooms);
+            document.getElementById(id).addEventListener('change', showRooms);
+        });
+
+        function renderAll() {
+            showRooms();
+            showRequests();
+            showSupport();
+            updateRoomOptions();
+        }
+
+        // Set default booking date to today
+        document.getElementById('requestDate').valueAsDate = new Date();
+
+        // Restore active session if remembered
+        if (activeSession) {
+            enterWorkspace(activeSession.role, activeSession.username);
+        } else {
+            renderAll();
+        }
     </script>
 </body>
-
 </html>
